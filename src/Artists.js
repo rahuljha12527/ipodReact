@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import artistImage from './assets/images/mainJaha.jpeg';
 
 class Artists extends Component {
   render() {
@@ -50,7 +51,7 @@ const styles = {
     height: "65%",
     width: "35%",
     borderRadius: "50%",
-    backgroundImage: "url(%(artistImage))",
+    backgroundImage: `url(${artistImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     alignSelf: "center",
