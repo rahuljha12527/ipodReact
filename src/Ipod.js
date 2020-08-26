@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import sound from "./assets/music/MainJaha.mp3";
+import Screen from "./Screen";
 import ZingTouch from "zingtouch";
 
 class Ipod extends Component {
@@ -11,6 +12,24 @@ class Ipod extends Component {
       enter: "0",
       play: true,
     };
+  }
+
+  rotateWheel=()=>{
+
+    let containerElement=document.getElementById('inner-container');
+    let activeRegion=new ZingTouch.Region(containerElement);
+
+    let change=0;
+    let self=this;
+
+    self.state.enter=self.state.enter+1;
+
+    if(self.state.enter<2){
+      activeRegion.bind(containerElement,'rotate',function(event){
+
+        
+      })
+    }
   }
   render() {
     return (
@@ -24,39 +43,53 @@ class Ipod extends Component {
           audio={this.state.audio}
         />
 
-        <div id='innerContainer' style={styles.wheel} onMouseOver={this.rotateWheel}>
-        <div style={styles.buttonContainer}>
-          <div style={styles.menuButton}>
-            <i style={styles.image} className="fas fa-bars"></i>
+        <div
+          id="inner-container"
+          style={styles.wheel}
+          onMouseOver={this.rotateWheel}
+        >
+          <div style={styles.buttonContainer}>
+            <div style={styles.menuButton}>
+              <i
+                onClick={this.changePageToHomeScreen}
+                style={styles.image}
+                className="fas fa-bars"
+              ></i>
+            </div>
           </div>
-        </div>
 
-        <div style={styles.buttonContainer}>
-          <div style={styles.middleButtons}>
-            <i style={styles.image} className="fas fa-fast-backward"></i>
-            <div
-              style={{
-                backgroundImage: "linear-gradient(45deg,#8c8181,transparent)",
-                width: "5rem",
-                height: "5rem",
-                borderRadius: "50%",
-              }}
-            ></div>
-            <i style={styles.image} className="fas fa-fast-forward"></i>
+          <div style={styles.buttonContainer}>
+            <div style={styles.middleButtons}>
+              <i style={styles.image} className="fas fa-fast-backward"></i>
+              <div
+                onClick={this.changePage}
+                style={{
+                  backgroundImage: "linear-gradient(45deg,#8c8181,transparent)",
+                  width: "5rem",
+                  height: "5rem",
+                  borderRadius: "50%",
+                }}
+              ></div>
+              <i style={styles.image} className="fas fa-fast-forward"></i>
+            </div>
           </div>
-        </div>
 
-        <div style={styles.buttonContainer}>
-          <div style={styles.playButton}>
-            <i style={styles.image} className="fas fa-play"></i>&nbsp;
-            <i
-              onClick={this.toggle}
-              style={styles.image}
-              className="fas fa-pause"
-            ></i>
+          <div style={styles.buttonContainer}>
+            <div onClick={this.toggle} style={styles.playButton}>
+              <i
+                onClick={this.toggle}
+                style={styles.image}
+                className="fas fa-play"
+              ></i>
+              &nbsp;
+              <i
+                onClick={this.toggle}
+                style={styles.image}
+                className="fas fa-pause"
+              ></i>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }

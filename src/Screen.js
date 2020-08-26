@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import Home from './Home';
 
 class Screen extends Component {
     render() {
         return (
             <div style={styles.screen} id='screen-container'>
-                {this.props.activePage==='Home'?<Home />}
+                {this.props.activePage==='Home'?<Home />:''}
             </div>
         );
     }

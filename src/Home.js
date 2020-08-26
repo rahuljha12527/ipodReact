@@ -5,23 +5,25 @@ class Home extends Component {
     render() {
         return (
             <div style={styles.homeScreen} id="home-screen">
-                  <div style={style.menuList} id="menuList">
+                  <div style={styles.menuList} id="menuList">
                      <div style={styles.titleBar}>
                         <p style={{fontWeight:"bold"}}>iPod</p>
-                           <img style={styles.battery} src="https://image.flaticon.com/icons/svg/3103/3103446.svg"> </img>
+                        <img style={styles.battery} src="https://image.flaticon.com/icons/svg/3103/3103446.svg"></img>
                      </div>
 
-                     <ListGroup style={}>
-                         <ListGroup.Item>
-                             Now Playing
+                     <ListGroup style={{borderRadius:'0'}} >
+                         <ListGroup.Item style={{border:'0',padding:'0.2rem 0.6rem'}} className={this.props.activeItem==='NowPlaying'?'active':''}>
+                             Now Playing {this.props.activeItem==='NowPlaying'?<span style={{float:'right',fontWeight:'bold'}}>&gt;</span>:''}
                          </ListGroup.Item>
-                         <ListGroup.Item>
-                             Music
+                         <ListGroup.Item style={{border:'0',padding:'0.2rem 0.6rem'}} className={this.props.activeItem==='Music'?'active':''}>
+                             Music  {this.props.activeItem==='Music'?<span style={{float:'right',fontWeight:'bold'}}>&gt;</span>:''}
                          </ListGroup.Item>
-                         <ListGroup.Item>
-                             Games
-                         </ListGroup.Item><ListGroup.Item>
-                             Settings
+
+                         <ListGroup.Item style={{border:'0',padding:'0.2rem 0.6rem'}} className={this.props.activeItem==='Games'?'active':''}>
+                             Games {this.props.activeItem==='Games'?<span style={{float:'right',fontWeight:'bold'}}>&gt;</span>:''}
+                         </ListGroup.Item>
+                         <ListGroup.Item style={{border:'0',padding:'0.2rem 0.6rem'}} className={this.props.activeItem==='Settings'?'active':''}>
+                             Settings {this.props.activeItem==='Settings'?<span style={{float:'right',fontWeight:'bold'}}>&gt;</span>:''}
                          </ListGroup.Item>
                      </ListGroup>
                   </div>
@@ -74,4 +76,4 @@ const styles={
 
 }
 
-export default Home;
+export default Home;    
