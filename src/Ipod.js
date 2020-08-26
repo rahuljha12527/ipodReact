@@ -1,15 +1,30 @@
 import React, { Component } from "react";
 import sound from "./assets/music/MainJaha.mp3";
-import ZingTouch from 'zingtouch';
+import ZingTouch from "zingtouch";
 
 class Ipod extends Component {
+  constructor() {
+    super();
+    this.state = {
+      activeItem: "NowPlaying",
+      activePage: "Home",
+      enter: "0",
+      play: true,
+    };
+  }
   render() {
     return (
       <div style={styles.ipodContainer}>
         <audio className="audio-element">
           <source src={sound}></source>
         </audio>
+        <Screen
+          activeItem={this.state.activeItem}
+          activePage={this.state.activePage}
+          audio={this.state.audio}
+        />
 
+        <div id='innerContainer' style={styles.wheel} onMouseOver={this.rotateWheel}>
         <div style={styles.buttonContainer}>
           <div style={styles.menuButton}>
             <i style={styles.image} className="fas fa-bars"></i>
@@ -41,6 +56,7 @@ class Ipod extends Component {
             ></i>
           </div>
         </div>
+      </div>
       </div>
     );
   }
