@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {ListGroup} from 'react-bootstrap';
 
 class Music extends Component {
-    render() {
+    render() {  
         return (
             <div style={styles.musicScreen} id="music-screen">
                 <div style={styles.menuList} id="menu-list">

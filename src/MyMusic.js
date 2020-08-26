@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ListGroup} from 'react-bootstrap';
+import sound from './assets/music/MainJaha.mp3';
 class MyMusic extends Component {
    
     constructor(){
@@ -11,10 +11,32 @@ class MyMusic extends Component {
 
     componentDidMount(){
         let self=this;
-        
+        self.props.audio.play();
+
+        self.props.addEventListener("timeupdate",function(){
+            if(self.state.isMounted){
+                var pos=self.props.audio.currTime/self.props.audio.duration;
+                self.updateTime();
+                let fill=document.getElementById("fill");
+                if(fill!=null){
+                    fill.style.width=pos*100+"%";
+                }
+            }
+        })
+    }
+
+    updateTime=()=>{
+        this.setState({
+            audio:this.props.audio
+        })
+    }
+
+    componentWillMount(){
+        this.state.isMounted=false;
     }
   
     render() {
+        let audio=this.props.audio;
         return (
             <div style={styles.myMusicContainer}>
 
