@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import artistImage from "./assets/images/mainJaha.jpeg";
+import artistImage from "./assets/images/mainJaha.jpg";
 
 class Artists extends Component {
   render() {

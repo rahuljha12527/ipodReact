@@ -14,22 +14,161 @@ class Ipod extends Component {
     };
   }
 
-  rotateWheel=()=>{
+  rotateWheel = () => {
+    let containerElement = document.getElementById("inner-container");
+    let activeRegion = new ZingTouch.Region(containerElement);
 
-    let containerElement=document.getElementById('inner-container');
-    let activeRegion=new ZingTouch.Region(containerElement);
+    let change = 0;
+    let self = this;
 
-    let change=0;
-    let self=this;
+    self.state.enter = self.state.enter + 1;
 
-    self.state.enter=self.state.enter+1;
+    if (self.state.enter < 2) {
+      activeRegion.bind(containerElement, "rotate", function (event) {
+        var newAngle = event.detail.distanceFromLast;
+        console.log(newAngle);
 
-    if(self.state.enter<2){
-      activeRegion.bind(containerElement,'rotate',function(event){
-
-        
-      })
+        if (newAngle < 0) {
+          console.log(change);
+          change++;
+          if (change === 15) {
+            console.log("change state");
+            change = 0;
+            if (self.state.activePage === "Home") {
+              if (self.state.activeItem === "NowPlaying") {
+                self.setState({
+                  activeItem: "Music",
+                });
+              } else if (self.state.activeItem === "Music") {
+                self.setState({
+                  activeItem: "Games",
+                });
+              } else if (self.state.activeItem === "Games") {
+                self.setState({
+                  activeItem: "Settings",
+                });
+              } else if (self.state.activeItem === "Settings") {
+                self.setState({
+                  activeItem: "NowPlaying",
+                });
+              }
+            } else if (self.state.activePage === "Music") {
+              if (self.state.activeItem === "MyMusic") {
+                self.setState({
+                  activeItem: "Artists",
+                });
+              } else if (self.state.activeItem === "Artists") {
+                self.setState({
+                  activeItem: "MyMusic",
+                });
+              }
+            }
+          }
+        } else {
+          console.log(change);
+          change++;
+          if (change === 15) {
+            console.log("change state");
+            change = 0;
+            if (self.state.activePage === "Home") {
+              if (self.state.activeItem === "NowPlaying") {
+                self.setState({
+                  activeItem: "Settings",
+                });
+              } else if (self.state.activeItem === "Music") {
+                self.setState({
+                  activeItem: "NowPlaying",
+                });
+              } else if (self.state.activeItem === "Games") {
+                self.setState({
+                  activeItem: "Music",
+                });
+              } else if (self.state.activeItem === "Settings") {
+                self.setState({
+                  activeItem: "Games",
+                });
+              }
+            } else if (self.state.activePage === "Music") {
+              if (self.state.activeItem === "MyMusic") {
+                self.setState({
+                  activeItem: "Artists",
+                });
+              } else if (self.state.activeItem === "Artists") {
+                self.setState({
+                  activeItem: "MyMusic",
+                });
+              }
+            }
+          }
+        }
+      });
+    } else {
+      console.log("Not allowed to enter");
     }
+  };
+
+  changePage = () => {
+    if (this.state.activeItem === "Music") {
+      this.setState({
+        activeItem: "MyMusic",
+        activePage: this.state.activeItem,
+      });
+    } else if (this.state.activeItem === "NowPlaying") {
+      this.setState({
+        activeItem: "NowPlaying",
+        activePage: "MyMusic",
+      });
+    } else {
+      this.setState({
+        activeItem: this.state.activeItem,
+        activePage: this.state.activeItem,
+      });
+    }
+  };
+
+  changePageToHomeScreen = () => {
+    if (
+      this.state.activeItem === "MyMusic" ||
+      this.state.activeItem === "Artists"
+    ) {
+      this.setState({
+        activeItem: "Music",
+        activePage: "Home",
+      });
+    } else {
+      this.setState({
+        activeItem: this.state.activeItem,
+        activePage: "Home",
+      });
+    }
+  };
+
+  toggle = () => {
+    if (this.state.activePage === "MyMusic") {
+      if (this.state.play === true) {
+        this.state.audio.pause();
+        this.setState({
+          play: false,
+        });
+      } else {
+        this.state.audio.play();
+        this.setState({
+          play: true,
+        });
+      }
+
+      console.log("toggled");
+    }
+  };
+
+  componentDidMount() {
+    let audio = document.getElementsByClassName("audio-element")[0];
+    console.log(audio);
+    this.setState({
+      audio: audio,
+    });
+
+    console.log(this.state);
   }
   render() {
     return (
@@ -102,6 +241,7 @@ const styles = {
     backgroundImage: "radial-gradient(#adb1b5,#4d4f50)",
     margin: "4rem auto",
     display: "flex",
+    flexDirection:"row",
     flexWrap: "wrap",
     justifyContent: "center",
     borderRadius: "24px",
@@ -115,7 +255,7 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "cener",
+    justifyContent: "center",
   },
   buttonContainer: {
     width: "85%",

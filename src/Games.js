@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Games extends Component {
   render() {
     return (
-      <div style={style.settings}>
+      <div style={styles.settings}>
         <div style={styles.titleBar}>
           <p style={{ fontWeight: "bold" }}>iPod</p>
           <img

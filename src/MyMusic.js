@@ -18,6 +18,7 @@ class MyMusic extends Component {
                 var pos=self.props.audio.currTime/self.props.audio.duration;
                 self.updateTime();
                 let fill=document.getElementById("fill");
+                console.log(fill);
                 if(fill!=null){
                     fill.style.width=pos*100+"%";
                 }
@@ -28,10 +29,10 @@ class MyMusic extends Component {
     updateTime=()=>{
         this.setState({
             audio:this.props.audio
-        })
+        })  
     }
 
-    componentWillMount(){
+    componentWillUnmount(){
         this.state.isMounted=false;
     }
   
@@ -127,8 +128,9 @@ const styles={
         alignSelf:'center'
     },
 
-    titleBar:{
-        height:'10%',
+   
+        titleBar:{
+    height:'10%',
         width:'100%',
         borderRadius:'12px 0 0 0',
         backgroundImage:'linear-gradient(0deg rgb(123,132,140),transparent)',
